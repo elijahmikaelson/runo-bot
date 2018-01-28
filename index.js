@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
+const token = process.env.FB_PAGE_ACCESS_TOKEN
+
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -36,26 +39,84 @@ app.post('/webhook/', function (req, res) {
     for (let i = 0; i < messaging_events.length; i++) {
       let event = req.body.entry[0].messaging[i]
       let sender = event.sender.id
-      if (event.message && event.message.text) {
+      if (event.message) {
+		  
+		handleMessage(sender, event.message);        
+
   	    let text = event.message.text
   	    if (text === 'Generic') {
   		    sendGenericMessage(sender)
   		    continue
   	    }
-  	    sendTextMessage(sender, "I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you:" + text.substring(0, 200))
+		handleMessage(sender, event.message);        
 
       }
-      if (event.postback) {
-  	    let text = JSON.stringify(event.postback)
-  	    sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+      else if (event.postback) {
+	      handlePostback(sender, event.postback);
+  	    //let text = JSON.stringify(event.postback)
+  	    //sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
   	    continue
       }
     }
     res.sendStatus(200)
   })
 
-const token = process.env.FB_PAGE_ACCESS_TOKEN
+function firstEntity(nlp, name) {
+  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+}  
 
+function handleMessage(sender_psid, received_message) {
+
+  let response;
+  
+request({
+    url: 'https://graph.facebook.com/v2.6/' + response.user + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token;,
+    json: true // parse
+}, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            let user_name = body.first_name
+        }
+    })
+
+  // Check if the message contains text
+  if (received_message.text) {    
+
+	// check greeting is here and is confident
+	const greeting = firstEntity(message.nlp, 'greetings');
+	
+	if (greeting && greeting.confidence > 0.8) {
+		response = {
+			"text": `Hi there! "${user_name}"`
+		}  
+    } else {
+		// Create the payload for a basic text message
+		response = {
+		  "text": `I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: "${received_message.text}".`
+		}
+	}
+  }  
+  
+  // Sends the response message
+  sendTextMessage(sender, response);    
+}  
+  
+  
+function handlePostback(sender_psid, received_postback) {
+  let response;
+  
+  // Get the payload for the postback
+  let payload = received_postback.payload;
+
+  // Set the response based on the postback payload
+  if (payload === 'yes') {
+    response = { "text": "Thanks!" }
+  } else if (payload === 'no') {
+    response = { "text": "Oops, try sending another image." }
+  }
+  // Send the message to acknowledge the postback
+  sendTextMessage(sender_psid, response);
+}  
+  
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
     request({
