@@ -78,7 +78,9 @@ function handleMessage(sender_psid, received_message) {
 	if (greeting && greeting.confidence > 0.8) {
 		
 		let usersPublicProfile = 'https://graph.facebook.com/v2.6/' + sender_psid + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token;
-
+		console.log (usersPublicProfile)
+		
+		
 		request({
 			url: usersPublicProfile, 
 			method:"GET",
@@ -108,7 +110,7 @@ function handleMessage(sender_psid, received_message) {
 			'Wearily I sit here, pain and misery my only companions. Why stop now just when I\’m hating it?',
 			'Well I wish you\’d just tell me rather than try to engage my enthusiasm.',
 			'You think you\’ve got problems. What are you supposed to do if you are a manically depressed chatbot?',
-			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :('
+			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :(',
 			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :('
 		]
 		
