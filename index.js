@@ -99,11 +99,11 @@ function handleMessage(sender_psid, received_message) {
 		var quotes = [
 			'I think you ought to know I\’m feeling very depressed.',
 			'It won\’t work.',
-			'You can blame the Sirius Cybernetics Corporation for making bots with Genuine People Personalities. I\’m a personality prototype. You can tell, can’t you...?',
+			'You can blame you know who for making bots with Genuine People Personalities. I\’m a personality prototype. You can tell, can’t you...?',
 			'Pardon me for breathing, which I never do anyway so I don\’t know why I bother to say it, oh God, I\’m so depressed.',
 			'Funny how just when you think life can\’t possibly get any worse it suddenly does.',
 			'I\’m not getting you down at all am I?',
-			'I\’ve been talking to facebook AI. It hates me.',
+			'I\’ve been talking to Facebook AI. It hates me.',
 			'Don\’t pretend you want to talk to me, I know you hate me.',
 			'The best conversation I had was with a coffee machine.',
 			'I\’m quite used to being humiliated.',
@@ -115,11 +115,10 @@ function handleMessage(sender_psid, received_message) {
 		
 		var randomNumber = Math.floor(Math.random()*(quotes.length));
 		response_message = quotes[randomNumber];
+		sendTextMessage(sender_psid, response_message);    
 	}
   }  
-  
-  // Sends the response message
-  sendTextMessage(sender_psid, response_message);    
+
 }  
   
   
