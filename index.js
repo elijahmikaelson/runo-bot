@@ -77,7 +77,7 @@ function handleMessage(sender_psid, received_message) {
 	
 	if (greeting && greeting.confidence > 0.8) {
 		
-		let usersPublicProfile = 'https://graph.facebook.com/v2.6/' + sender_psid + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token;
+		let usersPublicProfile = "https://graph.facebook.com/v2.6/" + sender_psid + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + token;
 		console.log (usersPublicProfile)
 		
 		
