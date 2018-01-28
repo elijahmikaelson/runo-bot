@@ -69,16 +69,6 @@ function handleMessage(sender_psid, received_message) {
   let response_message;
   let user_name = "";
   
-request({
-    url: 'https://graph.facebook.com/v2.6/' + sender_psid + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token, 
-    method:"GET",
-	json: true // parse
-}, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            user_name = body.first_name
-        }
-    })
-
   // Check if the message contains text
   if (received_message.text) {    
 
@@ -86,9 +76,26 @@ request({
 	const greeting = firstEntity(received_message.nlp, 'greetings');
 	
 	if (greeting && greeting.confidence > 0.8) {
+		
+		let usersPublicProfile = 'https://graph.facebook.com/v2.6/' + sender_psid + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token;
+
+		request({
+			url: usersPublicProfile, 
+			//method:"GET",
+			json: true // parse
+			}, function (error, response, body) {
+				if (!error && response.statusCode === 200) {
+					user_name = body.first_name
+				}
+		})
+		
 		response_message = "Hi there!" + user_name
     } else {
-		response_message = "Sorry, I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: "+ received_message.text
+		response_message = "Sorry, I am a stupid bot, yet.\
+			My whole existence must be a mistake.\
+			My creator Onur, named me Runo.\
+			What a stupid name :(\
+			Here is an echo for you: "+ received_message.text
 	}
   }  
   
