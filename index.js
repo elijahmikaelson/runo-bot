@@ -79,11 +79,9 @@ function handleMessage(sender_psid, received_message) {
 		
 		let usersPublicProfile = "https://graph.facebook.com/v2.6/" + sender_psid + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + token;
 		console.log (usersPublicProfile)
-		
-		
+				
 		request({
 			url: usersPublicProfile, 
-			method:"GET",
 			json: true // parse
 			}, function (error, response, body) {
 				if (!error && response.statusCode === 200) {
