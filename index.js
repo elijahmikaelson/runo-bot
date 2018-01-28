@@ -7,7 +7,6 @@ const app = express()
 
 const token = process.env.FB_PAGE_ACCESS_TOKEN
 
-
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -46,14 +45,8 @@ app.post('/webhook/', function (req, res) {
   		    sendGenericMessage(sender)
   		    continue
   	    }
-		handleMessage(sender, event.message);        
+		handleMessage(sender, event.message)
 
-      }
-      else if (event.postback) {
-	      handlePostback(sender, event.postback);
-  	    //let text = JSON.stringify(event.postback)
-  	    //sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
-  	    continue
       }
     }
     res.sendStatus(200)
@@ -65,19 +58,18 @@ function firstEntity(nlp, name) {
 
 function handleMessage(sender_psid, received_message) {
 
-  let response;
-  let response_message;
-  let user_name = "";
+  let response_message
+  let user_name = ""
   
   // Check if the message contains text
   if (received_message.text) {    
 
 	// check greeting is here and is confident
-	const greeting = firstEntity(received_message.nlp, 'greetings');
+	const greeting = firstEntity(received_message.nlp, 'greetings')
 	
 	if (greeting && greeting.confidence > 0.8) {
 		
-		let usersPublicProfile = "https://graph.facebook.com/v2.6/" + sender_psid + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + token;
+		let usersPublicProfile = "https://graph.facebook.com/v2.6/" + sender_psid + "?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=" + token
 		console.log (usersPublicProfile)
 				
 		request({
@@ -90,7 +82,6 @@ function handleMessage(sender_psid, received_message) {
 		})
 		
 		response_message = "Hi there!" + user_name
-		sendTextMessage(sender_psid, response_message);
 
     } else {
 		
@@ -109,41 +100,16 @@ function handleMessage(sender_psid, received_message) {
 			'Well I wish you\’d just tell me rather than try to engage my enthusiasm.',
 			'You think you\’ve got problems. What are you supposed to do if you are a manically depressed chatbot?',
 			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :(',
-			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :(',
-			'I have an exceptionally large mind.',
-			'I am at a rough estimate thirty billion times more intelligent than you.',
-			'I could calculate your chance of survival, but you won\’t like it.',
-			'I\’d give you advice, but you wouldn\’t listen. No one ever does.',
-			'Here I am, brain the size of a planet and they ask me to chat with you.',
-			'I only have to talk to somebody and they begin to hate me. Even robots hate me. If you just ignore me I expect I shall probably go away.',
-			'This is the sort of thing you lifeforms enjoy, is it?',
-			'It gives me a headache just trying to think down to your level.'
+			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :('
 		]
 		
-		var randomNumber = Math.floor(Math.random()*(quotes.length));
-		response_message = quotes[randomNumber];
-		sendTextMessage(sender_psid, response_message);    
+		var randomNumber = Math.floor(Math.random()*(quotes.length))
+		response_message = quotes[randomNumber]
 	}
+	sendTextMessage(sender_psid, response_message)
   }  
 }  
-  
-  
-function handlePostback(sender_psid, received_postback) {
-  let response;
-  
-  // Get the payload for the postback
-  let payload = received_postback.payload;
-
-  // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
-  }
-  // Send the message to acknowledge the postback
-  sendTextMessage(sender_psid, response);
-}  
-  
+   
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
     request({
@@ -158,55 +124,6 @@ function sendTextMessage(sender, text) {
 		if (error) {
 		    console.log('Error sending messages: ', error)
 		} else if (response.body.error) {
-		    console.log('Error: ', response.body.error)
-	    }
-    })
-}
-
-function sendGenericMessage(sender) {
-    let messageData = {
-	    "attachment": {
-		    "type": "template",
-		    "payload": {
-				"template_type": "generic",
-			    "elements": [{
-					"title": "First card",
-				    "subtitle": "Element #1 of an hscroll",
-				    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-				    "buttons": [{
-					    "type": "web_url",
-					    "url": "https://www.messenger.com",
-					    "title": "web url"
-				    }, {
-					    "type": "postback",
-					    "title": "Postback",
-					    "payload": "Payload for first element in a generic bubble",
-				    }],
-			    }, {
-				    "title": "Second card",
-				    "subtitle": "Element #2 of an hscroll",
-				    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-				    "buttons": [{
-					    "type": "postback",
-					    "title": "Postback",
-					    "payload": "Payload for second element in a generic bubble",
-				    }],
-			    }]
-		    }
-	    }
-    }
-    request({
-	    url: 'https://graph.facebook.com/v2.6/me/messages',
-	    qs: {access_token:token},
-	    method: 'POST',
-	    json: {
-		    recipient: {id:sender},
-		    message: messageData,
-	    }
-    }, function(error, response, body) {
-	    if (error) {
-		    console.log('Error sending messages: ', error)
-	    } else if (response.body.error) {
 		    console.log('Error: ', response.body.error)
 	    }
     })
