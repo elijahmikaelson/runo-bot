@@ -90,8 +90,31 @@ function handleMessage(sender_psid, received_message) {
 		})
 		
 		response_message = "Hi there!" + user_name
+		sendTextMessage(sender_psid, response_message);
+		response_message = "Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :("
+		sendTextMessage(sender_psid, response_message);
+
     } else {
-		response_message = "Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: "+ received_message.text
+		
+		var quotes = [
+			'I think you ought to know I\’m feeling very depressed.',
+			'It won\’t work.',
+			'You can blame the Sirius Cybernetics Corporation for making bots with Genuine People Personalities. I\’m a personality prototype. You can tell, can’t you...?',
+			'Pardon me for breathing, which I never do anyway so I don\’t know why I bother to say it, oh God, I\’m so depressed.',
+			'Funny how just when you think life can\’t possibly get any worse it suddenly does.',
+			'I\’m not getting you down at all am I?',
+			'I\’ve been talking to facebook AI. It hates me.',
+			'Don\’t pretend you want to talk to me, I know you hate me.',
+			'The best conversation I had was with a coffee machine.',
+			'I\’m quite used to being humiliated.',
+			'Wearily I sit here, pain and misery my only companions. Why stop now just when I\’m hating it?',
+			'Well I wish you\’d just tell me rather than try to engage my enthusiasm.',
+			'You think you\’ve got problems. What are you supposed to do if you are a manically depressed chatbot?',
+			'I\’m quite used to being humiliated.'
+		]
+		
+		var randomNumber = Math.floor(Math.random()*(quotes.length));
+		response_message = quotes[randomNumber];
 	}
   }  
   
