@@ -42,10 +42,7 @@ app.post('/webhook/', function (req, res) {
   		    sendGenericMessage(sender)
   		    continue
   	    }
-  	    sendTextMessage(sender, "I am a stupid bot, yet :(")
-  	    sendTextMessage(sender, "My whole existence must be a mistake.")
-  	    sendTextMessage(sender, "My creator Onur, named me Runo. What a stupid name :(")
-  	    sendTextMessage(sender, "Here is an echo for you:" + text.substring(0, 200))
+  	    sendTextMessage(sender, "I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you:" + text.substring(0, 200))
 
       }
       if (event.postback) {
