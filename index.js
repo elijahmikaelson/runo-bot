@@ -100,7 +100,7 @@ request({
   }  
   
   // Sends the response message
-  sendTextMessage(sender, response);    
+  sendTextMessage(sender_psid, response);    
 }  
   
   
