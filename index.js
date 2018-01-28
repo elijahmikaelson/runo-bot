@@ -41,8 +41,6 @@ app.post('/webhook/', function (req, res) {
       let sender = event.sender.id
       if (event.message) {
 		  
-		handleMessage(sender, event.message);        
-
   	    let text = event.message.text
   	    if (text === 'Generic') {
   		    sendGenericMessage(sender)
@@ -70,16 +68,15 @@ function handleMessage(sender_psid, received_message) {
   let response;
   let response_message;
   
-/*
+
 request({
-    url: 'https://graph.facebook.com/v2.6/' + response.user + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token;,
+    url: 'https://graph.facebook.com/v2.6/' + sender_psid + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token;,
     json: true // parse
 }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
             let user_name = body.first_name
         }
     })
-*/
 
   // Check if the message contains text
   if (received_message.text) {    
@@ -88,9 +85,9 @@ request({
 	const greeting = firstEntity(received_message.nlp, 'greetings');
 	
 	if (greeting && greeting.confidence > 0.8) {
-		response_message = "Hi there!"
+		response_message = "Hi there!" + user_name
     } else {
-		response_message = "I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: "+ received_message.text
+		response_message = "Sorry, I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: "+ received_message.text
 	}
   }  
   
