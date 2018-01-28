@@ -100,7 +100,15 @@ function handleMessage(sender_psid, received_message) {
 			'Well I wish you\’d just tell me rather than try to engage my enthusiasm.',
 			'You think you\’ve got problems. What are you supposed to do if you are a manically depressed chatbot?',
 			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :(',
-			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :('
+			'Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :(',
+			'I have an exceptionally large mind.',
+			'I am at a rough estimate thirty billion times more intelligent than you.',
+			'I could calculate your chance of survival, but you won\’t like it.',
+			'I\’d give you advice, but you wouldn\’t listen. No one ever does.',
+			'Here I am, brain the size of a planet and they ask me to chat with you.',
+			'I only have to talk to somebody and they begin to hate me. Even robots hate me. If you just ignore me I expect I shall probably go away.',
+			'This is the sort of thing you lifeforms enjoy, is it?',
+			'It gives me a headache just trying to think down to your level.'
 		]
 		
 		var randomNumber = Math.floor(Math.random()*(quotes.length))
