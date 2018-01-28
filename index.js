@@ -89,12 +89,12 @@ request({
 	if (greeting && greeting.confidence > 0.8) {
 		response = {
 			//"text": `Hi there! "${user_name}"`
-			"text": `Hi there!`
+			"text": "Hi there!"
 		}  
     } else {
 		// Create the payload for a basic text message
 		response = {
-		  "text": `I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: "${received_message.text}".`
+		  "text": "I am a stupid bot, yet :( My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: ${received_message.text}"
 		}
 	}
   }  
