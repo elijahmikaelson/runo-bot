@@ -81,7 +81,7 @@ function handleMessage(sender_psid, received_message) {
 
 		request({
 			url: usersPublicProfile, 
-			//method:"GET",
+			method:"GET",
 			json: true // parse
 			}, function (error, response, body) {
 				if (!error && response.statusCode === 200) {
@@ -91,11 +91,7 @@ function handleMessage(sender_psid, received_message) {
 		
 		response_message = "Hi there!" + user_name
     } else {
-		response_message = "Sorry, I am a stupid bot, yet.\
-			My whole existence must be a mistake.\
-			My creator Onur, named me Runo.\
-			What a stupid name :(\
-			Here is an echo for you: "+ received_message.text
+		response_message = "Sorry, I am a stupid bot, yet. My whole existence must be a mistake. My creator Onur, named me Runo. What a stupid name :( Here is an echo for you: "+ received_message.text
 	}
   }  
   
