@@ -69,6 +69,7 @@ function handleMessage(sender_psid, received_message) {
 
   let response;
   
+/*
 request({
     url: 'https://graph.facebook.com/v2.6/' + response.user + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token;,
     json: true // parse
@@ -77,6 +78,7 @@ request({
             let user_name = body.first_name
         }
     })
+*/
 
   // Check if the message contains text
   if (received_message.text) {    
@@ -86,7 +88,8 @@ request({
 	
 	if (greeting && greeting.confidence > 0.8) {
 		response = {
-			"text": `Hi there! "${user_name}"`
+			//"text": `Hi there! "${user_name}"`
+			"text": `Hi there!`
 		}  
     } else {
 		// Create the payload for a basic text message
