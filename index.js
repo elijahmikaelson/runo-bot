@@ -84,7 +84,7 @@ request({
   if (received_message.text) {    
 
 	// check greeting is here and is confident
-	const greeting = firstEntity(message.nlp, 'greetings');
+	const greeting = firstEntity(received_message.nlp, 'greetings');
 	
 	if (greeting && greeting.confidence > 0.8) {
 		response = {
