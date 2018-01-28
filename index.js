@@ -67,16 +67,17 @@ function handleMessage(sender_psid, received_message) {
 
   let response;
   let response_message;
+  let user_name;
   
 request({
-		console.log('user', sender_psid, 'page', token, )
+		console.log('user', sender_psid, 'page', token)
 
     url: 'https://graph.facebook.com/v2.6/' + sender_psid + '?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=' + token, 
     method:"GET",
 	json: true // parse
 }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            let user_name = body.first_name
+            user_name = body.first_name
         }
     })
 
